@@ -11,21 +11,21 @@
             @csrf
             <div class="form-group">
                 <label for="slug">Номер (уникальный)</label>
-                <input type="text" class="form-control" id="slug" name="slug" required>
+                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
             </div>
 
             <div class="form-group">
                 <label for="title">Название</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" required value="{{ old('title') }}">
             </div>
             <div class="form-group">
                 <label for="description">Описание</label>
-                <input type="text" class="form-control" id="description" name="description" >
+                <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}">
             </div>
 
             <div class="form-group">
                 <label for="content">Текст</label>
-                <textarea class="form-control" id="content" rows="3" name="content"></textarea>
+                <textarea class="form-control" id="content" rows="3" name="content">{{ old('content') }}</textarea>
             </div>
 
             <div class="form-check form-check-inline">

@@ -27,30 +27,15 @@ class PostsController extends Controller
     public function store()
     {
         $afterValidate = $this->validate(request(), [
-            'slug' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'slug' => 'required|unigue:posts_slug|max:255',
+            'title' => ['required', 'min:5', 'max:100'],
+            'description' => ['required', 'max:255'],
             'content' => 'required',
         ]);
 
         $afterValidate['published'] = request('published');
 
         Posts::create($afterValidate);
-
-        /*
-        Article::create(request()->all());
-
-        // create article
-        $article = new Article();
-
-        $article->title = request('title');
-        $article->description = request('desc');
-        $article->content = request('content');
-        $article->created_at = date('Y-m-d H:i:s');
-        // save to DB
-        $article->save();
-        // redirect to articles page*/
-
 
         return redirect('/');
     }
