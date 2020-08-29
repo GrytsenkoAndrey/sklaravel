@@ -37,21 +37,6 @@ class PostsController extends Controller
 
         Posts::create($afterValidate);
 
-        /*
-        Article::create(request()->all());
-
-        // create article
-        $article = new Article();
-
-        $article->title = request('title');
-        $article->description = request('desc');
-        $article->content = request('content');
-        $article->created_at = date('Y-m-d H:i:s');
-        // save to DB
-        $article->save();
-        // redirect to articles page*/
-
-
         return redirect('/');
     }
 }
