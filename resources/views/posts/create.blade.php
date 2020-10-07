@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label for="slug">Номер (уникальный)</label>
-                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
+                <input type="text" class="form-control" maxlength="6" id="slug" name="slug" required value="{{ old('slug') }}">
             </div>
 
             <div class="form-group">

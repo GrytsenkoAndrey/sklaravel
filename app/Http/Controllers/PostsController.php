@@ -15,8 +15,14 @@ class PostsController extends Controller
 
     public function show(Posts $post)
     {
-        //$post = Posts::find($slug);
-        return view('posts.show', compact('post'));
+        $data = json_decode($post);
+
+        return view('posts.show', [
+            'title'      => $data->title,
+            'created_at' => $data->created_at,
+            'slug'       => $data->slug,
+            'content'    => $data->content
+        ]);
     }
 
     public function create()
@@ -27,7 +33,7 @@ class PostsController extends Controller
     public function store()
     {
         $afterValidate = $this->validate(request(), [
-            'slug' => 'required|unigue:posts_slug|max:255',
+            'slug' => 'required|max:6',
             'title' => ['required', 'min:5', 'max:100'],
             'description' => ['required', 'max:255'],
             'content' => 'required',

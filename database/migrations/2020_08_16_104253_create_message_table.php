@@ -18,7 +18,7 @@ class CreateMessageTable extends Migration
             $table->string('email');
             $table->text('content');
             $table->timestamps();
-            $table->charset ='utf8';
+            $table->charset ='utf8mb4';
         });
     }
 

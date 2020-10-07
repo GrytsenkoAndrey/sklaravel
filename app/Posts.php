@@ -8,4 +8,9 @@ class Posts extends Model
 {
     // array allowed
     public $fillable = ['slug', 'title', 'description', 'content', 'created_at', 'published'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
