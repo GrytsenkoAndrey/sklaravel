@@ -20,8 +20,8 @@
         <nav class="nav d-flex justify-content-between">
             <a class="p-2 text-muted" href="/posts/">Posts</a>
             <a class="p-2 text-muted" href="/posts/create">Add Posts</a>
-            <a class="p-2 text-muted" href="/admin/feedbacks">Feedbacks</a>
-            <a class="p-2 text-muted" href="/admin/create">Add message</a>
+            <a class="p-2 text-muted" href="/fead/feedbacks">Feedbacks</a>
+            <a class="p-2 text-muted" href="/fead/create">Add message</a>
             <a class="p-2 text-muted" href="/about">About</a>
             <a class="p-2 text-muted" href="/contacts">Contacts</a>
         </nav>

@@ -33,9 +33,9 @@ Route::get('/contacts', function () {
     return view('contacts', ['email' => 'ex@ex.com', 'phone' => '13-13-13']);
 });
 
-Route::get('/admin/feedbacks', 'MessageController@index');
-Route::get('/admin/create', 'MessageController@create');
-Route::post('/admin', 'MessageController@store');
+Route::get('/fead/feedbacks', 'MessageController@index');
+Route::get('/fead/create', 'MessageController@create');
+Route::post('/fead', 'MessageController@store');
 
 /**
  * GET /article

@@ -6,7 +6,7 @@
             Добавить отзыв
         </h3>
         @include('layout.errors')
-        <form method="POST" action="/admin">
+        <form method="POST" action="/fead">
 
             @csrf
 

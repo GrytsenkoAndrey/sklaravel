@@ -7,7 +7,7 @@
         </h3>
 
         @foreach($messages as $message)
-            @include('admin.item')
+            @include('fead.item')
         @endforeach
     </div>
 @endsection
