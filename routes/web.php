@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'PostsController@index');
+Route::get('/posts', 'PostsController@index');
+Route::get('/posts/create', 'PostsController@create');
+Route::get('/posts/{post}', 'PostsController@show');
+Route::post('/posts', 'PostsController@store');
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::patch('/posts/{post}', 'PostsController@update');
+Route::delete('/posts/{post}', 'PostsController@destroy');
 
 Route::get('/about', function () {
     $name = 'Andrey';
@@ -24,13 +30,6 @@ Route::get('/about', function () {
 Route::get('/contacts', function () {
     return view('contacts', ['email' => 'ex@ex.com', 'phone' => '13-13-13']);
 });
-
-Route::get('/posts/create', 'PostsController@create');
-// {article} - unique ID of article
-Route::get('/posts/{post}', 'PostsController@show');
-
-Route::post('/posts', 'PostsController@store');
-
 
 Route::get('/admin/feedbacks', 'MessageController@index');
 Route::get('/admin/create', 'MessageController@create');

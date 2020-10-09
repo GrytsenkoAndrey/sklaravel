@@ -3,33 +3,22 @@
 @section('content')
     <div class="col-md-8 blog-main">
         <h3 class="pb-4 mb-4 font-italic border-bottom">
-            Добавить статью
+            Редактировать статью
         </h3>
         @include('layout.errors')
-        <form method="POST" action="/posts">
+        <form method="POST" action="/posts/{{ $post->slug }}">
 
             @csrf
-            <div class="form-group">
-                <label for="slug">Номер (уникальный)</label>
-                <input type="text"
-                       class="form-control"
-                       maxlength="6"
-                       id="slug"
-                       name="slug"
-                       required
-                       value="{{ old('slug') }}"
-                />
-            </div>
-
+            @method('PATCH')
             <div class="form-group">
                 <label for="title">Название</label>
                 <input type="text"
                        class="form-control"
                        id="title"
-                       maxlength="100"
                        name="title"
+                       maxlength="100"
                        required
-                       value="{{ old('title') }}"
+                       value="{{ old('title', $post->title) }}"
                 />
             </div>
             <div class="form-group">
@@ -38,7 +27,7 @@
                        class="form-control"
                        id="description"
                        name="description"
-                       value="{{ old('description') }}"
+                       value="{{ old('description', $post->description) }}"
                 />
             </div>
 
@@ -47,7 +36,7 @@
                 <textarea class="form-control"
                           id="content"
                           rows="3"
-                          name="content">{{ old('content') }}
+                          name="content">{{ old('content', $post->content) }}
                 </textarea>
             </div>
 
@@ -55,12 +44,21 @@
                 <input class="form-check-input"
                        type="checkbox"
                        id="published"
+                       {{ $post->published ? 'checked' : '' }}
                        name="published"
                 />
                 <label class="form-check-label" for="published">Опубликована</label>
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2">Добавить статью</button>
+            <button type="submit" class="btn btn-primary mb-2">Редактировать</button>
+        </form>
+        <form method="POST" action="/posts/{{ $post->slug }}" class="mt-2 mb-2">
+
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger"
+                    type="submit"
+                    >Удалить</button>
         </form>
     </div>
 @endsection

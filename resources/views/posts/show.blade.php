@@ -3,9 +3,9 @@
 @section('content')
     <div class="col-md-8 blog-main">
         <h3 class="pb-4 mb-4 font-italic border-bottom">
-            {{ $title }} / {{ $created_at }}
+            {{ $post->title }} / {{ $post->created_at }}
         </h3>
-        <p>{{ $slug }}</p>
-        <p>{{ $content }}</p>
+        <p>{{ $post->slug }}  <a href="/posts/{{ $post->slug }}/edit" title="Edit" class="ml-1">Редактировать</a></p>
+        <p>{{ $post->content }}</p>
     </div>
 @endsection
