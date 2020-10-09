@@ -10,8 +10,19 @@ class Post extends Model
     // array allowed
     public $fillable = ['slug', 'title', 'description', 'content', 'created_at', 'published'];
 
+    /**
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag');
     }
 }

@@ -41,6 +41,16 @@
             </div>
 
             <div class="form-check form-check-inline">
+                <label for="tag">Теги</label>
+                <input type="text"
+                       class="form-control"
+                       id="tag"
+                       name="tag"
+                       value="{{ old('tags', $post->tag->pluck('name')->implode(',')) }}"
+                />
+            </div>
+
+            <div class="form-check form-check-inline">
                 <input class="form-check-input"
                        type="checkbox"
                        id="published"

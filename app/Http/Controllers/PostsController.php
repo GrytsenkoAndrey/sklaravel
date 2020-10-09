@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 
 class PostsController extends Controller
 {
@@ -12,7 +13,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get()->where('published', 1);
+        $posts = Post::with('tag')->latest()->get()->where('published', 1);
         return view('posts.posts', compact('posts'));
     }
 
@@ -47,7 +48,7 @@ class PostsController extends Controller
 
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
 
-        Post::create($afterValidate);
+        dd(Post::create($afterValidate));
 
         return redirect('/posts/');
     }
@@ -72,10 +73,34 @@ class PostsController extends Controller
             'description' => ['required', 'max:255'],
             'content' => 'required',
         ]);
-
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
 
         $post->update($afterValidate);
+
+        /** @var Collection $postTags */
+        $postTags = $post->tag->keyBy('name');
+        $tag = collect(explode(',', request('tag')))->keyBy(function ($item) { return $item; });
+        /* FIRST variant
+        $tagsToAttach = $tag->diffKeys($postTags);
+        $tagsToDetach = $postTags->diffKeys($tag);
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $post->tag()->attach($tag);
+        }
+
+        foreach ($tagsToDetach as $tag) {
+            $post->tag()->detach($tag);
+        }*/
+
+        /** SECOND variant */
+        $syncIds = $postTags->intersectByKeys($tag)->pluck('id')->toArray();
+        $tagsToAttach = $tag->diffKeys($postTags);
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $syncIds[] = $tag->id;
+        }
+        $post->tag()->sync($syncIds);
 
         return redirect('/posts/');
     }
