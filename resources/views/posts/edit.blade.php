@@ -46,7 +46,8 @@
                        class="form-control"
                        id="tag"
                        name="tag"
-                       value="{{ old('tags', $post->tag->pluck('name')->implode(',')) }}"
+                       required
+                       value="{{ old('tag', $post->tag->pluck('name')->implode(',')) }}"
                 />
             </div>
 

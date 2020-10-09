@@ -52,6 +52,17 @@
             </div>
 
             <div class="form-check form-check-inline">
+                <label for="tag">Теги</label>
+                <input type="text"
+                       class="form-control"
+                       id="tag"
+                       name="tag"
+                       required
+                       value="{{ old('tag') }}"
+                        />
+            </div>
+
+            <div class="form-check form-check-inline">
                 <input class="form-check-input"
                        type="checkbox"
                        id="published"

@@ -45,10 +45,18 @@ class PostsController extends Controller
             'description' => ['required', 'max:255'],
             'content' => 'required',
         ]);
-
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
 
-        dd(Post::create($afterValidate));
+        /** @var \App\Post $post */
+        $post = Post::create($afterValidate);
+
+        #$tags = collect(explode(',', request('tag')->validate(['tag' => 'required'])))->keyBy(function ($item) { return $item; });
+        $tags = collect(explode(',', implode(',', request()->validate(['tag' => 'required']))))
+            ->keyBy(function ($item) { return $item; });
+        foreach ($tags as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $post->tag()->attach($tag);
+        }
 
         return redirect('/posts/');
     }
