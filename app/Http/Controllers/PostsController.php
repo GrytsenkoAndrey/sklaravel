@@ -50,7 +50,11 @@ class PostsController extends Controller
         /** @var \App\Post $post */
         $post = Post::create($afterValidate);
 
-        #$tags = collect(explode(',', request('tag')->validate(['tag' => 'required'])))->keyBy(function ($item) { return $item; });
+        /**
+         * валидируем полученные теги из запроса (валидация возвращает массив)
+         * массив в строку с разделителем
+         * строку с разделителем в массив
+         */
         $tags = collect(explode(',', implode(',', request()->validate(['tag' => 'required']))))
             ->keyBy(function ($item) { return $item; });
         foreach ($tags as $tag) {
