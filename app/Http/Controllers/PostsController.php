@@ -8,6 +8,13 @@ use App\Tag;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:update.post')->except(['index', 'store', 'create']);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -46,7 +53,7 @@ class PostsController extends Controller
             'content' => 'required',
         ]);
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
-
+        $afterValidate['user_id'] = auth()->id();
         /** @var \App\Post $post */
         $post = Post::create($afterValidate);
 
@@ -71,6 +78,13 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+        /* лучше сделать через Policies/PostPolicy
+
+        if ($post->user_id !== auth()->id()) {
+            abort(403);
+        }*/
+        $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -86,6 +100,7 @@ class PostsController extends Controller
             'content' => 'required',
         ]);
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
+        $afterValidate['user_id'] = auth()->id();
 
         $post->update($afterValidate);
 
@@ -119,6 +134,7 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         $post->delete();
 
         return redirect('/posts/');

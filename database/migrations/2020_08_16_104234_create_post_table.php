@@ -20,6 +20,7 @@ class CreatePostTable extends Migration
             $table->string('description');
             $table->text('content');
             $table->boolean('published')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->charset ='utf8mb4';
         });
