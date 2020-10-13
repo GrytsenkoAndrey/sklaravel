@@ -52,3 +52,6 @@ Route::post('/fead', 'MessageController@store');
  * delete
  * DELETE /article/{article}
  */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
