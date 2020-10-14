@@ -12,7 +12,7 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:update.post')->except(['index', 'store', 'create']);
+        $this->middleware('can:update.post')->except(['index', 'store', 'create', 'show']);
     }
 
     /**
@@ -30,6 +30,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        #$post = $post->with('user');
         return view('posts.show', compact('post'));
     }
 
@@ -83,8 +84,7 @@ class PostsController extends Controller
         if ($post->user_id !== auth()->id()) {
             abort(403);
         }*/
-        $this->authorize('update', $post);
-
+        #$this->authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Roles extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'user_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo('users');
+        return $this->belongsTo(User::class);
     }
 }
