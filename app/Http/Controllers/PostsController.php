@@ -12,7 +12,7 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:update.post')->except(['index', 'store', 'create', 'show']);
+        $this->middleware('can:update,post')->except(['index', 'store', 'create', 'show', 'edit']);
     }
 
     /**
@@ -80,11 +80,12 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         /* лучше сделать через Policies/PostPolicy
-
         if ($post->user_id !== auth()->id()) {
             abort(403);
-        }*/
+        }
+        */
         $this->authorize('edit', $post);
+
         return view('posts.edit', compact('post'));
     }
 
