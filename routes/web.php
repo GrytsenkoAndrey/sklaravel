@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/posts', 'PostsController@index');
-Route::get('/posts/tags/{tag}', 'TagController@index');
-Route::get('/posts/create', 'PostsController@create');
-Route::get('/posts/{post}', 'PostsController@show');
-Route::post('/posts', 'PostsController@store');
-Route::get('/posts/{post}/edit', 'PostsController@edit');
-Route::patch('/posts/{post}', 'PostsController@update');
-Route::delete('/posts/{post}', 'PostsController@destroy');
+Route::get('/posts', [App\Http\Controllers\PostsController::class, 'index']);
+Route::get('/posts/tags/{tag}', [App\Http\Controllers\TagController::class, 'index']);
+Route::get('/posts/create', [App\Http\Controllers\PostsController::class, 'create']);
+Route::get('/posts/{post}', [App\Http\Controllers\PostsController::class, 'show']);
+Route::post('/posts', [App\Http\Controllers\PostsController::class, 'store']);
+Route::get('/posts/{post}/edit', [App\Http\Controllers\PostsController::class, 'edit']);
+Route::patch('/posts/{post}', [App\Http\Controllers\PostsController::class, 'update']);
+Route::delete('/posts/{post}', [App\Http\Controllers\PostsController::class, 'destroy']);
 
 
 Route::get('/about', function () {
@@ -33,9 +33,9 @@ Route::get('/contacts', function () {
     return view('contacts', ['email' => 'ex@ex.com', 'phone' => '13-13-13']);
 });
 
-Route::get('/fead/feedbacks', 'MessageController@index');
-Route::get('/fead/create', 'MessageController@create');
-Route::post('/fead', 'MessageController@store');
+Route::get('/fead/feedbacks', [App\Http\Controllers\MessageController::class, 'index']);
+Route::get('/fead/create', [App\Http\Controllers\MessageController::class, 'create']);
+Route::post('/fead', [App\Http\Controllers\MessageController::class, 'store']);
 
 /**
  * GET /article

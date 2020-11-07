@@ -10,6 +10,16 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Post $post
+     * @return bool
+     */
+    public function edit(User $user, Post $post)
+    {
+        return $post->user_id == $user->id;
+    }
+
     /*public function show(User $user, Post $post)
     {
         return $post->user_id == $user->id;

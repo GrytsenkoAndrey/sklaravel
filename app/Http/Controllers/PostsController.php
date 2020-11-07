@@ -84,7 +84,7 @@ class PostsController extends Controller
         if ($post->user_id !== auth()->id()) {
             abort(403);
         }*/
-        #$this->authorize('update', $post);
+        $this->authorize('edit', $post);
         return view('posts.edit', compact('post'));
     }
 
