@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
+use App\Mail\PostCreated;
+use App\Mail\PostDeleted;
 
 class PostsController extends Controller
 {
@@ -58,6 +60,11 @@ class PostsController extends Controller
         /** @var \App\Post $post */
         $post = Post::create($afterValidate);
 
+        # send notification
+        \Mail::to($post->users->email)->send(
+            new PostCreated($post)
+        );
+
         /**
          * валидируем полученные теги из запроса (валидация возвращает массив)
          * массив в строку с разделителем
@@ -105,6 +112,11 @@ class PostsController extends Controller
 
         $post->update($afterValidate);
 
+        # send notification
+        \Mail::to($post->users->email)->send(
+            new PostCreated($post)
+        );
+
         /** @var Collection $postTags */
         $postTags = $post->tag->keyBy('name');
         $tag = collect(explode(',', request('tag')))->keyBy(function ($item) { return $item; });
@@ -137,6 +149,10 @@ class PostsController extends Controller
     {
         $this->authorize('delete', $post);
         $post->delete();
+        # send notification
+        \Mail::to($post->users->email)->send(
+            new PostDeleted($post)
+        );
 
         return redirect('/posts/');
     }
