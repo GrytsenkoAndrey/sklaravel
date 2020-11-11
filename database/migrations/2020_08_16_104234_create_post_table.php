@@ -20,11 +20,9 @@ class CreatePostTable extends Migration
             $table->string('description');
             $table->text('content');
             $table->boolean('published')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
             $table->charset ='utf8mb4';
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -1,6 +1,6 @@
 @component('mail::message')
 
-# Создана новая статья {{ $post->title }}
+# Обновлена статья {{ $post->title }}
 
 The body of your message.
 {{ $post->description }}

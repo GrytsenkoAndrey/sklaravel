@@ -6,7 +6,7 @@
             Редактировать статью
         </h3>
         @include('layout.errors')
-        <form method="POST" action="{{ route('post.update') }}">
+        <form method="POST" action="{{ route('post.update', $post->getRouteKey()) }}">
 
             @csrf
             @method('PATCH')

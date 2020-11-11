@@ -6,20 +6,9 @@
             Добавить статью
         </h3>
         @include('layout.errors')
-        <form method="POST" action="{{ route('post.create') }}">
+        <form method="POST" action="{{ route('post.store') }}">
 
             @csrf
-            <div class="form-group">
-                <label for="slug">Номер (уникальный)</label>
-                <input type="text"
-                       class="form-control"
-                       maxlength="6"
-                       id="slug"
-                       name="slug"
-                       required
-                       value="{{ old('slug') }}"
-                />
-            </div>
 
             <div class="form-group">
                 <label for="title">Название</label>

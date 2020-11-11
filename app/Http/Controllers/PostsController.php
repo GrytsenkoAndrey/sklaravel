@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PostUpdated;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use App\Mail\PostCreated;
-use App\Mail\PostDeleted;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -50,18 +52,18 @@ class PostsController extends Controller
     public function store()
     {
         $afterValidate = request()->validate([
-            'slug' => 'required|max:6',
             'title' => ['required', 'min:5', 'max:100'],
             'description' => ['required', 'max:255'],
             'content' => 'required',
         ]);
+        $afterValidate['slug'] = Str::slug($afterValidate['title']);
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
         $afterValidate['user_id'] = auth()->id();
         /** @var \App\Post $post */
         $post = Post::create($afterValidate);
 
         # send notification
-        \Mail::to($post->users->email)->send(
+        \Mail::to(Auth::user()->email)->send(
             new PostCreated($post)
         );
 
@@ -113,8 +115,8 @@ class PostsController extends Controller
         $post->update($afterValidate);
 
         # send notification
-        \Mail::to($post->users->email)->send(
-            new PostCreated($post)
+        \Mail::to($post->user->email)->send(
+            new PostUpdated($post)
         );
 
         /** @var Collection $postTags */
