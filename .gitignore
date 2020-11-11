@@ -1,3 +1,7 @@
+/docker
+docker-compose.yml
+docker-rebuild.sh
+docker-sync.yml
 /node_modules
 /public/hot
 /public/storage
