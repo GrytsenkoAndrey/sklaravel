@@ -6,7 +6,7 @@
             Добавить статью
         </h3>
         @include('layout.errors')
-        <form method="POST" action="/posts">
+        <form method="POST" action="{{ route('post.create') }}">
 
             @csrf
             <div class="form-group">

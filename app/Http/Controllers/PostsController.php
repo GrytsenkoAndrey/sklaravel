@@ -77,7 +77,7 @@ class PostsController extends Controller
             $post->tag()->attach($tag);
         }
 
-        return redirect('/posts/');
+        return redirect(route('site.posts'));
     }
 
     /**
@@ -142,7 +142,7 @@ class PostsController extends Controller
         }
         $post->tag()->sync($syncIds);
 
-        return redirect('/posts/');
+        return redirect(route('site.posts'));
     }
 
     public function destroy(Post $post)
@@ -154,6 +154,6 @@ class PostsController extends Controller
             new PostDeleted($post)
         );
 
-        return redirect('/posts/');
+        return redirect(route('site.posts'));
     }
 }

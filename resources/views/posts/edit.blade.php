@@ -6,7 +6,7 @@
             Редактировать статью
         </h3>
         @include('layout.errors')
-        <form method="POST" action="/posts/{{ $post->slug }}">
+        <form method="POST" action="{{ route('post.update') }}">
 
             @csrf
             @method('PATCH')
@@ -63,7 +63,7 @@
 
             <button type="submit" class="btn btn-primary mb-2">Редактировать</button>
         </form>
-        <form method="POST" action="/posts/{{ $post->slug }}" class="mt-2 mb-2">
+        <form method="POST" action="{{ route('post.delete', $post->getRouteKey()) }}" class="mt-2 mb-2">
 
             @csrf
             @method('DELETE')

@@ -34,6 +34,6 @@ class MessageController extends Controller
             'email' => request('email'),
             'content' => request('content'),
         ]);
-        return redirect('/fead/feedbacks');
+        return redirect(route('site.feedback'));
     }
 }

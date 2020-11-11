@@ -7,7 +7,7 @@
         </h3>
         <p>{{ $post->slug }}{{-- {{ $post->user->name }}--}}
             @can('update', $post)
-            <a href="/posts/{{ $post->slug }}/edit" title="Edit" class="ml-1">Редактировать</a>
+            <a href="{{ route('post.edit', $post->getRouteKey()) }}" title="Edit" class="ml-1">Редактировать</a>
             @endcan
         </p>
 
