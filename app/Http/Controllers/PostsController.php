@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Mail\PostUpdated;
 use Illuminate\Http\Request;
 use App\Post;
@@ -49,13 +50,9 @@ class PostsController extends Controller
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store()
+    public function store(PostRequest $request)
     {
-        $afterValidate = request()->validate([
-            'title' => ['required', 'min:5', 'max:100'],
-            'description' => ['required', 'max:255'],
-            'content' => 'required',
-        ]);
+        $afterValidate = $request->validated();
         $afterValidate['slug'] = Str::slug($afterValidate['title']);
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
         $afterValidate['user_id'] = auth()->id();
@@ -99,16 +96,13 @@ class PostsController extends Controller
     }
 
     /**
+     * @param PostRequest $request
      * @param Post $post
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        $afterValidate = request()->validate([
-            'title' => ['required', 'min:5', 'max:100'],
-            'description' => ['required', 'max:255'],
-            'content' => 'required',
-        ]);
+        $afterValidate = $request->validated();
         $afterValidate['published'] = \request()->has('published') ? '1' : '0';
         $afterValidate['user_id'] = auth()->id();
 
