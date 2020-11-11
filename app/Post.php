@@ -8,7 +8,7 @@ class Post extends Model
 {
     public $table = 'post';
     // array allowed
-    public $fillable = ['slug', 'title', 'description', 'content', 'created_at', 'published', 'user_id'];
+    protected $fillable = ['slug', 'title', 'description', 'content', 'created_at', 'published', 'user_id'];
 
     /**
      * @return string

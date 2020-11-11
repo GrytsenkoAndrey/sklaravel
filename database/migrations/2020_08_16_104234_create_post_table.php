@@ -15,7 +15,7 @@ class CreatePostTable extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug', 6)->unique('slug');
+            $table->string('slug')->unique('slug');
             $table->string('title', 100);
             $table->string('description');
             $table->text('content');
@@ -23,6 +23,8 @@ class CreatePostTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->charset ='utf8mb4';
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
