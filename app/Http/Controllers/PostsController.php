@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
-use App\Mail\PostUpdated;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use App\Mail\PostCreated;
+use App\Mail\PostUpdated;
+use App\Mail\PostDeleted;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -146,7 +147,7 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
         # send notification
-        \Mail::to($post->users->email)->send(
+        \Mail::to($post->user->email)->send(
             new PostDeleted($post)
         );
 
