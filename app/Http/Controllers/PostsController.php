@@ -77,6 +77,9 @@ class PostsController extends Controller
             $post->tag()->attach($tag);
         }
 
+        session()->flash('message_type', 'success');
+        session()->flash('message', 'Your post was added');
+
         return redirect(route('site.posts'));
     }
 
@@ -139,6 +142,9 @@ class PostsController extends Controller
         }
         $post->tag()->sync($syncIds);
 
+        session()->flash('message_type', 'success');
+        session()->flash('message', 'You have updated post');
+
         return redirect(route('site.posts'));
     }
 
@@ -150,6 +156,8 @@ class PostsController extends Controller
         \Mail::to($post->user->email)->send(
             new PostDeleted($post)
         );
+
+        session()->flash('message', 'Post was deleted');
 
         return redirect(route('site.posts'));
     }
