@@ -13,28 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/posts', [App\Http\Controllers\PostsController::class, 'index'])->name('site.posts');
+Route::get('/posts/tags/{tag}', [App\Http\Controllers\TagController::class, 'index'])->name('posts.tags');
+Route::get('/posts/create', [App\Http\Controllers\PostsController::class, 'create'])->name('post.create');
+Route::get('/posts/{post}', [App\Http\Controllers\PostsController::class, 'show'])->name('post.show');
+Route::post('/posts', [App\Http\Controllers\PostsController::class, 'store'])->name('post.store');
+Route::get('/posts/{post}/edit', [App\Http\Controllers\PostsController::class, 'edit'])->name('post.edit');
+Route::patch('/posts/{post}', [App\Http\Controllers\PostsController::class, 'update'])->name('post.update');
+Route::delete('/posts/{post}', [App\Http\Controllers\PostsController::class, 'destroy'])->name('post.delete');
 
-Route::get('/', 'PostsController@index');
 
 Route::get('/about', function () {
     $name = 'Andrey';
     return view('about', compact('name'));
-});
+})->name('site.about');
 
 Route::get('/contacts', function () {
     return view('contacts', ['email' => 'ex@ex.com', 'phone' => '13-13-13']);
-});
+})->name('site.contacts');
 
-Route::get('/posts/create', 'PostsController@create');
-// {article} - unique ID of article
-Route::get('/posts/{post}', 'PostsController@show');
-
-Route::post('/posts', 'PostsController@store');
-
-
-Route::get('/admin/feedbacks', 'MessageController@index');
-Route::get('/admin/create', 'MessageController@create');
-Route::post('/admin', 'MessageController@store');
+Route::get('/fead/feedbacks', [App\Http\Controllers\MessageController::class, 'index'])->name('site.feedback');
+Route::get('/fead/create', [App\Http\Controllers\MessageController::class, 'create'])->name('feedback.create');
+Route::post('/fead', [App\Http\Controllers\MessageController::class, 'store'])->name('feedback.store');
 
 /**
  * GET /article
@@ -51,3 +51,4 @@ Route::post('/admin', 'MessageController@store');
  * delete
  * DELETE /article/{article}
  */
+Auth::routes();
