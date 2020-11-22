@@ -1,12 +1,7 @@
 /docker
 docker-compose.yml
-<<<<<<< HEAD
 docker-sync.yml
 docker-rebuild.sh
-=======
-docker-rebuild.sh
-docker-sync.yml
->>>>>>> 7230b2d117daaad657e5063b47ca2df87da188a3
 /node_modules
 /public/hot
 /public/storage
