@@ -10,7 +10,7 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::latest()->get();
-        return view('admin.list', compact('messages'));
+        return view('fead.list', compact('messages'));
     }
 
     public function show()
@@ -20,7 +20,7 @@ class MessageController extends Controller
 
     public function create()
     {
-        return view('admin.create');
+        return view('fead.create');
     }
 
     public function store()
@@ -34,6 +34,6 @@ class MessageController extends Controller
             'email' => request('email'),
             'content' => request('content'),
         ]);
-        return redirect('/');
+        return redirect(route('site.feedback'));
     }
 }
